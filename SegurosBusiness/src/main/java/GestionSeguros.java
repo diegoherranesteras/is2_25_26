@@ -4,7 +4,7 @@ import java.util.List;
  * Gestion Seguros
  * Implementa las interfaces IGestionClientes e IGestionSeguros.
  */
-public class GestionSeguros implements IGestionClientes, IGestionSeguros {
+public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoSeguros {
 
     private IClientesDAO clientesDAO; 
     private ISegurosDAO segurosDAO;
@@ -26,7 +26,7 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros {
         return null;
     }
 
-    @Override
+
     public Cliente cliente(String dni) {
         // TODO: Implementar consulta de cliente (Caso de uso Consulta Cliente) [cite: 2537]
         return null;
@@ -48,6 +48,10 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros {
     @Override
     public Seguro anhadeConductorAdicional(String matricula, String conductor) {
         // TODO: Implementar añadir conductor adicional [cite: 2508]
+        return null;
+    }
+    public Seguro seguro(String matricula) {
+        // Implementa el CU: Consulta Seguro [cite: 1, 106]
         return null;
     }
 }
