@@ -1,3 +1,4 @@
+package es.unican.is2;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +15,15 @@ public class Cliente {
     private boolean minusvalia;
 
     private List<Seguro> seguros = new LinkedList<Seguro>();
+    
+    /**
+     * Constructor con parámetros
+     */
+    public Cliente(String dni, String nombre, boolean minusvalia) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.minusvalia = minusvalia;
+    }
     
 	/**
      * Retorna los seguros del cliente 
@@ -77,7 +87,14 @@ public class Cliente {
      * todos los seguros a su nombre
      */
     public double totalSeguros() {
-        return 0;
+    	double total = 0;
+        for (Seguro s : seguros) {
+            total += s.precio();
+        }
+        
+        if (this.minusvalia) {
+            total = total * 0.75; 
+        }
+        return total;
     }
-
 }

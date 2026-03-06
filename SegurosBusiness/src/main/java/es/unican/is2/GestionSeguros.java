@@ -1,3 +1,4 @@
+package es.unican.is2;
 import java.util.List;
 
 /**
@@ -6,52 +7,81 @@ import java.util.List;
  */
 public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoSeguros {
 
-    private IClientesDAO clientesDAO; 
-    private ISegurosDAO segurosDAO;
+	private IClientesDAO clientesDAO; 
+	private ISegurosDAO segurosDAO;
 
-    public GestionSeguros(IClientesDAO clientesDAO, ISegurosDAO segurosDAO) {
-        this.clientesDAO = clientesDAO;
-        this.segurosDAO = segurosDAO;
+	public GestionSeguros(IClientesDAO clientesDAO, ISegurosDAO segurosDAO) {
+		this.clientesDAO = clientesDAO;
+		this.segurosDAO = segurosDAO;
+	}
+
+	@Override
+
+	public Cliente nuevoCliente(Cliente c) throws DataAccessException{
+		return clientesDAO.creaCliente(c);
+	}
+
+	@Override
+	public Cliente bajaCliente(String dni) throws DataAccessException{
+		return clientesDAO.eliminaCliente(dni);
+	}
+
+
+	public Cliente cliente(String dni) throws DataAccessException{
+		return clientesDAO.cliente(dni);
+	}
+
+
+	@Override
+	public Seguro nuevoSeguro(Seguro s, String dni) throws OperacionNoValida, DataAccessException {
+		Cliente cli =clientesDAO.cliente(dni);
+		if (cli == null) {
+			return null;
+		}
+		Seguro seg = segurosDAO.seguroPorMatricula(s.getMatricula());
+		if (seg != null) {
+			throw new OperacionNoValida("Error ya exite seguro");
+		}
+		return segurosDAO.creaSeguro(s);
+	}
+
+	@Override
+	public Seguro bajaSeguro(String matricula, String dni) throws OperacionNoValida, DataAccessException {
+		Cliente cli =clientesDAO.cliente(dni);
+		if (cli == null) {
+			return null;
+		}
+		Seguro seg = segurosDAO.seguroPorMatricula(matricula);
+		if (seg == null) {
+			return seg;
+		}
+		boolean esPropietario = false;
+		for (Seguro segcli : cli.getSeguros()) {
+			if (segcli.getMatricula().equals(matricula)) {
+				esPropietario = true;
+				break;
+			}
+		}
+		if (!esPropietario) {
+			throw new OperacionNoValida("Error: el seguro no pertenece al cliente");
+		}
+		return segurosDAO.eliminaSeguro(seg.getId());
+
+	}
+	
+	@Override
+    public Seguro anhadeConductorAdicional(String matricula, String conductor) throws DataAccessException {
+    	Seguro s = segurosDAO.seguroPorMatricula(matricula);
+        
+        if (s == null) {
+            return null;
+        }
+        
+        s.setConductorAdicional(conductor);
+        return segurosDAO.actualizaSeguro(s);
     }
-
-    @Override
-    public Cliente nuevoCliente(Cliente c) {
-        // TODO: Implementar alta de cliente [cite: 2473]
-        return null;
-    }
-
-    @Override
-    public Cliente bajaCliente(String dni) {
-        // TODO: Implementar baja de cliente [cite: 2475]
-        return null;
-    }
-
-
-    public Cliente cliente(String dni) {
-        // TODO: Implementar consulta de cliente (Caso de uso Consulta Cliente) [cite: 2537]
-        return null;
-    }
-
-
-    @Override
-    public Seguro nuevoSeguro(Seguro s, String dni) {
-        // TODO: Implementar nuevo seguro asociado a un cliente [cite: 2502]
-        return null;
-    }
-
-    @Override
-    public Seguro bajaSeguro(String matricula, String dni) {
-        // TODO: Implementar baja de un seguro [cite: 2505]
-        return null;
-    }
-
-    @Override
-    public Seguro anhadeConductorAdicional(String matricula, String conductor) {
-        // TODO: Implementar añadir conductor adicional [cite: 2508]
-        return null;
-    }
-    public Seguro seguro(String matricula) {
-        // Implementa el CU: Consulta Seguro [cite: 1, 106]
-        return null;
+    
+    public Seguro seguro(String matricula) throws DataAccessException {
+    	return segurosDAO.seguroPorMatricula(matricula);
     }
 }

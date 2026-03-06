@@ -1,5 +1,4 @@
-
-
+package es.unican.is2;
 import java.time.LocalDate;
 
 /**
@@ -18,6 +17,17 @@ public class Seguro {
     private LocalDate fechaInicio;
 
 	private String conductorAdicional;
+	
+	/**
+     * Constructor con parámetros
+     */
+    public Seguro(long id, String matricula, int potencia, Cobertura cobertura, LocalDate fechaInicio) {
+        this.id = id;
+        this.matricula = matricula;
+        this.potencia = potencia;
+        this.cobertura = cobertura;
+        this.fechaInicio = fechaInicio;
+    }
 
 	/**
 	 * Retorna el identificador del seguro
@@ -116,7 +126,36 @@ public class Seguro {
 	 *         0 si el seguro todavía no está en vigor (no se ha alcanzado su fecha de inicio)
      */
 	public double precio() {
-		return 0;
-	}
+		LocalDate ahora = LocalDate.now();	
+		if ( fechaInicio == null || fechaInicio.isAfter(ahora)) {
+			return 0;
+		}
+		double precioB = 0;
+        if (cobertura != null) {
+            switch (cobertura) {
+                case TODO_RIESGO:
+                	precioB = 1000;
+                    break;
+                case TERCEROS_LUNAS:
+                	precioB = 600;
+                    break;
+                case TERCEROS:
+                	precioB = 400;
+                    break;
+            }
+        }
+
+        double total1 = precioB;
+        if (potencia >= 90 && potencia <= 110) {
+        	total1 += precioB * 0.05;
+        } else if (potencia > 110) {
+        	total1 += precioB * 0.20; 
+        }
+        if (ahora.isBefore(fechaInicio.plusYears(1))) {
+        	total1 = total1 * 0.80;
+        }
+
+        return total1;
+    }
 	
 }
