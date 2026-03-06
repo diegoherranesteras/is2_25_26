@@ -15,6 +15,14 @@ public class Cliente {
     private boolean minusvalia;
 
     private List<Seguro> seguros = new LinkedList<Seguro>();
+    /**
+     * Constructor con parámetros
+     */
+    public Cliente() {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.minusvalia = minusvalia;
+    }
     
     /**
      * Constructor con parámetros

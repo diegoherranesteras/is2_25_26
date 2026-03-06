@@ -19,6 +19,12 @@ public class Seguro {
 	private String conductorAdicional;
 	
 	/**
+     * Constructor sin parámetros
+     */
+    public Seguro() {
+
+    }
+	/**
      * Constructor con parámetros
      */
     public Seguro(long id, String matricula, int potencia, Cobertura cobertura, LocalDate fechaInicio) {
