@@ -16,12 +16,9 @@ public class Cliente {
 
     private List<Seguro> seguros = new LinkedList<Seguro>();
     /**
-     * Constructor con parámetros
+     * Constructor sin parámetros
      */
     public Cliente() {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.minusvalia = minusvalia;
     }
     
     /**
