@@ -1,0 +1,14 @@
+# Ignorar archivos de configuración de Eclipse
+.settings/
+.project
+.classpath
+.metadata/
+
+# Ignorar la carpeta donde Maven guarda el código compilado
+target/
+*.jar
+*.class
+
+# Ignorar archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
