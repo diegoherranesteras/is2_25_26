@@ -1,6 +1,7 @@
 
 package es.unican.is2;
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
@@ -13,11 +14,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
 
-import es.unican.is2.DataAccessException;
-import es.unican.is2.IGestionClientes;
-import es.unican.is2.IGestionSeguros;
-import es.unican.is2.IInfoSeguros;
-import es.unican.is2.Seguro;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -25,17 +21,10 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class VistaAgente extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField txtDniCliente;
 	private JTextField txtTotalCliente;
 	private JTextField txtNombreCliente;
-	private JList<String> listSeguros; 
 	private DefaultListModel<String> listModel;
-	private JButton btnBuscar;
-	
-	private IGestionClientes clientes;
-	private IGestionSeguros seguros;
-	private IInfoSeguros info;
+	private transient IInfoSeguros info;
 
 	/**
 	 * Create the frame.
@@ -43,20 +32,18 @@ public class VistaAgente extends JFrame {
 	public VistaAgente(IGestionClientes clientes,
 			IGestionSeguros seguros, IInfoSeguros info) {
 		
-		this.clientes = clientes;
-		this.seguros = seguros;
 		this.info = info;
 		init();
 	}
 	
 	public void init() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 341);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		listModel=  new DefaultListModel<String>();
+		listModel=  new DefaultListModel<>();
 		
 		txtTotalCliente = new JTextField();
 		txtTotalCliente.setBounds(230, 251, 180, 20);
@@ -68,7 +55,7 @@ public class VistaAgente extends JFrame {
 		lblTotalCliente.setBounds(137, 254, 180, 14);
 		contentPane.add(lblTotalCliente);
 		
-		listSeguros = new JList<String>();
+		JList<String> listSeguros = new JList<>();
 		listSeguros.setBounds(230, 98, 180, 116);
 		contentPane.add(listSeguros);
 		listSeguros.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -92,7 +79,7 @@ public class VistaAgente extends JFrame {
 		lblDatosCliente.setBounds(230, 11, 149, 14);
 		contentPane.add(lblDatosCliente);
 		
-		txtDniCliente = new JTextField();
+		JTextField txtDniCliente = new JTextField();
 		txtDniCliente.setBounds(10, 51, 113, 20);
 		contentPane.add(txtDniCliente);
 		txtDniCliente.setColumns(10);
@@ -103,12 +90,8 @@ public class VistaAgente extends JFrame {
 		contentPane.add(lblDniCliente);
 		lblDniCliente.setName("lblDniCliente");
 		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				rellenaDatosCliente(txtNombreCliente.getText());
-			}
-		});
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(arg0 -> rellenaDatosCliente(txtNombreCliente.getText()));
 		btnBuscar.setBounds(21, 122, 89, 23);
 		contentPane.add(btnBuscar);
 		btnBuscar.setName("btnBuscar");
