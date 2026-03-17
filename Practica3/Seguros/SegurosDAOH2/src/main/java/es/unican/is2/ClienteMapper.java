@@ -19,6 +19,9 @@ public class ClienteMapper {
 	 * @param results Fila resultado de una consulta en base de datos
 	 * @return Cliente El cliente en su estado actual en BBDD
 	 */
+	private ClienteMapper() {
+        /* This utility class should not be instantiated */
+    }
 	public static Cliente toCliente(ResultSet results) throws DataAccessException {
 
 		Cliente cont =null;

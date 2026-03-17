@@ -8,9 +8,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
 
@@ -29,8 +26,7 @@ public class VistaAgente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VistaAgente(IGestionClientes clientes,
-			IGestionSeguros seguros, IInfoSeguros info) {
+	public VistaAgente(IInfoSeguros info) {
 		
 		this.info = info;
 		init();
