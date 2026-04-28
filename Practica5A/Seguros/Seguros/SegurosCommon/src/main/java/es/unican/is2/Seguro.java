@@ -1,0 +1,167 @@
+package es.unican.is2;
+import java.time.LocalDate;
+
+/**
+ * Clase que representa un seguro de coche.
+ */
+public class Seguro {
+	
+	private long id;
+
+    private String matricula;
+
+	private int potencia;
+
+    private Cobertura cobertura;
+    
+    private LocalDate fechaInicio;
+
+	private String conductorAdicional;
+	
+	/**
+     * Constructor sin parámetros
+     */
+    public Seguro() {
+
+    }
+	/**
+     * Constructor con parámetros
+     */
+    public Seguro(long id, String matricula, int potencia, Cobertura cobertura, LocalDate fechaInicio) {
+        this.id = id;
+        this.matricula = matricula;
+        this.potencia = potencia;
+        this.cobertura = cobertura;
+        this.fechaInicio = fechaInicio;
+    }
+
+	/**
+	 * Retorna el identificador del seguro
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 *  Asigna el valor del identificador del seguro
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	/**
+	 * Retorna la matricula del coche 
+	 * asociado al seguro
+	 */
+	public String getMatricula() {
+		return matricula;
+	}
+
+	/**
+	 *  Asigna el valor de la matrícula del seguro
+	 */
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+	/**
+	 * Retorna la fecha de contratacion del seguro
+	 */
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
+
+	/**
+	 * Asigna la fecha de inicio del seguro
+	 * @param fechaInicio La fecha de inicio del seguro
+	 */
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	/**
+	 * Retorna el tipo de cobertura del seguro
+	 */
+	public Cobertura getCobertura() {
+		return cobertura;
+	}
+
+	/**
+	 * Asigna el tipo de cobertura del seguro
+	 * @param cobertura El tipo de cobertura del seguro
+	 */	
+	public void setCobertura(Cobertura cobertura) {
+		this.cobertura = cobertura;		
+}
+
+	/**
+     * Retorna la potencia del coche asociado 
+     * al seguro. 
+     */
+    public int getPotencia() {
+        return potencia;
+    }
+
+	/**
+	 *  Asigna el valor del identificador del seguro
+	 */
+	public void setPotencia(int potencia) {
+		this.potencia = potencia;
+	}
+
+	/**
+	 * Retorna el conductor adicional del seguro, si lo hay
+	 * @return El conductor adicional si lo hay
+	 * 		null en caso contrario
+	 */
+	public String getConductorAdicional() {
+		return conductorAdicional;
+	}
+
+	/**
+	 * Asigna el conductor adicional del seguro
+	 * @param conductorAdicional
+	 */
+	public void setConductorAdicional(String conductorAdicional) {
+		this.conductorAdicional = conductorAdicional;
+	}
+    
+    /**
+     * Retorna el precio del seguro. 
+	 * El precio se calcula a partir de la cobertura, la potencia del coche y el tiempo que lleva contratado el seguro
+	 * @return El precio del seguro
+	 *         0 si el seguro todavía no está en vigor (no se ha alcanzado su fecha de inicio)
+     */
+	public double precio() {
+		LocalDate ahora = LocalDate.now();	
+		if ( fechaInicio == null || fechaInicio.isAfter(ahora)) {
+			return 0;
+		}
+		double precioB = 0;
+        if (cobertura != null) {
+            switch (cobertura) {
+                case TODO_RIESGO:
+                	precioB = 1000;
+                    break;
+                case TERCEROS_LUNAS:
+                	precioB = 600;
+                    break;
+                case TERCEROS:
+                	precioB = 400;
+                    break;
+            }
+        }
+
+        double total1 = precioB;
+        if (potencia >= 90 && potencia <= 110) {
+        	total1 += precioB * 0.05;
+        } else if (potencia > 110) {
+        	total1 += precioB * 0.20; 
+        }
+        if (ahora.isBefore(fechaInicio.plusYears(1))) {
+        	total1 = total1 * 0.80;
+        }
+
+        return total1;
+    }
+	
+}
