@@ -48,8 +48,9 @@ public class H2ServerConnectionManager {
 	 * @throws DataAccessException Si hay un fallo en la conexion
 	 */
 	public static void cargaDatos() throws DataAccessException {
+		Connection con = getConnection();
 		try {
-			Connection con = getConnection();
+			
 			
 			// Creacion programatica de la BBDD
 			Statement stm = con.createStatement(); 
@@ -123,6 +124,7 @@ public class H2ServerConnectionManager {
 	public static void executeSqlStatement(String stringStatement) throws DataAccessException {
 		Connection con = getConnection(); 
 		try {
+			
 			Statement stm = con.createStatement(); 
 			stm.execute(stringStatement); 
 			stm.close(); 

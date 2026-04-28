@@ -87,7 +87,7 @@ public class VistaAgente extends JFrame {
 		lblDniCliente.setName("lblDniCliente");
 		
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(arg0 -> rellenaDatosCliente(txtNombreCliente.getText()));
+		btnBuscar.addActionListener(arg0 -> rellenaDatosCliente(txtDniCliente.getText()));
 		btnBuscar.setBounds(21, 122, 89, 23);
 		contentPane.add(btnBuscar);
 		btnBuscar.setName("btnBuscar");
