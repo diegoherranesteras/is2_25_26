@@ -2,32 +2,27 @@ package es.unican.is2.seguros.dominio;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import es.unican.is2.Cobertura;
 import es.unican.is2.Seguro;
-
 import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SeguroTest {
 
     private LocalDate hoy;
     private LocalDate maniana;
-    private LocalDate hace6Meses;       
-    private LocalDate haceExacto1Anio;  
-    private LocalDate hace2Anios;      
+    private LocalDate hace6Meses;
+    private LocalDate haceExacto1Anio;
+    private LocalDate hace2Anios;
 
     @BeforeEach
     public void setUp() {
-        hoy            = LocalDate.now();
-        maniana        = hoy.plusDays(1);
-        hace6Meses     = hoy.minusMonths(6);
+        hoy = LocalDate.now();
+        maniana = hoy.plusDays(1);
+        hace6Meses = hoy.minusMonths(6);
         haceExacto1Anio = hoy.minusYears(1);
-        hace2Anios     = hoy.minusYears(2);
+        hace2Anios = hoy.minusYears(2);
     }
-
-    
 
     @Test
     public void testPrecio_CoberturaTerceros() {
@@ -77,18 +72,18 @@ public class SeguroTest {
         assertEquals(480.0, s.precio(), 0.001);
     }
 
-    
     @Test
     public void testPrecio_MenosDe1Anio_Descuento20pct() {
         Seguro s = new Seguro(1L, "1111AAA", 15, Cobertura.TERCEROS, hace6Meses);
         assertEquals(320.0, s.precio(), 0.001);
     }
-    
+
     @Test
     public void testPrecio_ExactamenteUnAnio_SinDescuento() {
         Seguro s = new Seguro(1L, "1111AAA", 15, Cobertura.TERCEROS, haceExacto1Anio);
         assertEquals(400.0, s.precio(), 0.001);
     }
+
     @Test
     public void testPrecio_FechaInicioNull() {
         Seguro s = new Seguro(1L, "1111AAA", 50, Cobertura.TERCEROS, null);
@@ -100,6 +95,7 @@ public class SeguroTest {
         Seguro s = new Seguro(1L, "1111AAA", 50, Cobertura.TERCEROS, maniana);
         assertEquals(0.0, s.precio(), 0.001);
     }
+
     @Test
     public void testPrecio_CoberturaNull() {
         Seguro s = new Seguro(1L, "1111AAA", 50, null, hace2Anios);
