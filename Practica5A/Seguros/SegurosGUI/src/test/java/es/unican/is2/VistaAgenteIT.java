@@ -30,7 +30,7 @@ public class VistaAgenteIT {
     }
 
     @Test
-    public void testConsultaCliente_ClienteExistente_VariosSeguros_SinMinusvalia() {
+    public void testSinMinusvalia() {
         ventana.textBox("txtDNICliente").setText("11111111A");
         ventana.button("btnBuscar").click();
 
@@ -40,7 +40,7 @@ public class VistaAgenteIT {
     }
 
     @Test
-    public void testConsultaCliente_ClienteNoExistente() {
+    public void testClienteNoExistente() {
         ventana.textBox("txtDNICliente").setText("99999999Z");
         ventana.button("btnBuscar").click();
 
