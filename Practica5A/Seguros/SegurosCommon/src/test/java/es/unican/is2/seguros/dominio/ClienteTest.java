@@ -27,7 +27,7 @@ public class ClienteTest {
     }
 
     @Test
-    public void testTotalSeguros_SinSeguros_SinMinusvalia() {
+    public void testTotalSeguros_SinSeguros() {
         Cliente c = new Cliente("11111111A", "Juan", false);
         assertEquals(0.0, c.totalSeguros(), 0.001);
     }
@@ -39,7 +39,7 @@ public class ClienteTest {
     }
 
     @Test
-    public void testTotalSeguros_UnSeguro_SinMinusvalia() {
+    public void testUnSeguro() {
         Cliente c = new Cliente("22222222A", "Ana", false);
         Seguro s = new Seguro(1L, "2222AAA", 25, Cobertura.TERCEROS_LUNAS, hace2Anios);
         List<Seguro> lista = new ArrayList<>();
@@ -49,7 +49,7 @@ public class ClienteTest {
     }
 
     @Test
-    public void testTotalSeguros_UnSeguro_ConMinusvalia() {
+    public void testUnSeguro_ConMinusvalia() {
         Cliente c = new Cliente("22222222A", "Ana", true);
         Seguro s = new Seguro(1L, "2222AAA", 25, Cobertura.TERCEROS_LUNAS, hace2Anios);
         List<Seguro> lista = new ArrayList<>();
@@ -59,7 +59,7 @@ public class ClienteTest {
     }
 
     @Test
-    public void testTotalSeguros_DosSeguros_SinMinusvalia() {
+    public void testDosSeguros() {
         Cliente c = new Cliente("44444444A", "Pepe", false);
         Seguro s1 = new Seguro(1L, "4444AAA", 40, Cobertura.TERCEROS, hace2Anios);
         Seguro s2 = new Seguro(2L, "4444BBB", 300, Cobertura.TERCEROS_LUNAS, hace2Anios);
@@ -71,7 +71,7 @@ public class ClienteTest {
     }
 
     @Test
-    public void testTotalSeguros_SeguroNoVigente_TotalCero() {
+    public void testSeguroNoVigente() {
         Cliente c = new Cliente("11111111A", "Juan", false);
         Seguro s = new Seguro(1L, "1111AAA", 50, Cobertura.TERCEROS, maniana);
         List<Seguro> lista = new ArrayList<>();
